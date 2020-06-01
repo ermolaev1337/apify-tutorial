@@ -1,6 +1,5 @@
 const Apify = require('apify');
 const {utils: {log}} = Apify;
-const {sendEmail} = require('./tools');
 
 exports.SEARCH_PAGE = async ({page, request}, {requestQueue}) => {
     log.info('Crawling ASINs on the search page');
@@ -76,8 +75,8 @@ exports.OFFER_PAGE = async ({page, request}) => {
     await Apify.pushData(output);
     if (output.length>1)//roughly prevent spamming by empty arrays
         await Apify.call('apify/send-mail', {// let's put it simple for now but it's better to send all the messages as an array once the queue is empty
-            to: "warmrainherdream@icloud.com",
-            subject: 'This is for the Apify SDK excercise',
+            to: "lukas@apify.com",
+            subject: 'This is for the Apify SDK exercise',
             html: `<p>${JSON.stringify(output)}</p>`,
         });
 };

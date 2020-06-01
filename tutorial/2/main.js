@@ -18,18 +18,9 @@ Apify.main(async () => {
         requestList,
         requestQueue,
         launchPuppeteerOptions: {
-            useChrome: true,
             stealth: true,
-            headless: true,
+            headless: false,
         },
-        autoscaledPoolOptions:{
-            isFinishedFunction: async ()=>{//lasts forever, how to handle in a better way?
-                log.info('All task processed, composing output');
-                const dataSet = await Apify.openDataset();
-                const output = await dataSet.map(item => item);//map output afterwards according to the expected format
-                await Apify.setValue('amazon', output);
-            }
-        }
     });
 
     await crawler.run();
